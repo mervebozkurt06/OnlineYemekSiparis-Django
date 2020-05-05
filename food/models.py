@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.fields import  RichTextUploadingField
 
 
 class Category(models.Model):
@@ -38,7 +39,7 @@ class food(models.Model):
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
     amount = models.IntegerField() #miktar
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -47,7 +48,7 @@ class food(models.Model):
         return self.title
 
     def image_tag(self):
-        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        return mark_safe('<img src="{}" height="75"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
 
 
