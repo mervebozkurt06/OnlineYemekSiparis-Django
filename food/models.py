@@ -1,50 +1,69 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import  RichTextUploadingField
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 
 
-class Category(models.Model):
+class Category(MPTTModel):
     STATUS = (
         ('True','Evet'),
         ('False','Hayır'),
     )
     title = models.CharField(max_length=100)
-    keywords = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    keywords = models.CharField(blank=True,max_length=255)
+    description = models.CharField(blank=True,max_length=255)
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10, choices=STATUS)
-    slug = models.SlugField()
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
+    slug = models.SlugField(null=False, unique=True)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE) #self yani kendiyle ilişki
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    def str(self):
+    def __str__(self):
         return self.title
 
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
+    def str(self):
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return '->'.join(full_path[::-1])
+
     def image_tag(self):
-        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        return mark_safe('<img src="{}" height="75"/>'.format(self.image.url))
+
     image_tag.short_description = 'Image'
+
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
 
 class food(models.Model):
     STATUS = (
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE) #relation with Category table
+    category = models.ForeignKey(Category, on_delete=models.CASCADE) #Category modeli ile ilişkili
     title = models.CharField(max_length=150)
-    keywords = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    keywords = models.CharField(blank=True,max_length=255)
+    description = models.CharField(blank=True,max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
     amount = models.IntegerField() #miktar
     detail = RichTextUploadingField()
+    slug = models.SlugField(blank=True,max_length=150)
     status = models.CharField(max_length=10, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    def str(self):
+    def __str__(self):
         return self.title
 
     def image_tag(self):
@@ -54,11 +73,10 @@ class food(models.Model):
 
 
 class Images(models.Model):
-    food = models.ForeignKey(food, on_delete=models.CASCADE) #food_id otomatik oluşturup ilişkilendirdi
-    title = models.CharField(max_length=50, blank=True)
+    food = models.ForeignKey(food, on_delete=models.CASCADE) #food ile image ilişkilendirildi
+    title = models.CharField(max_length=50, blank=True) #ondelete models Cascade eğer food u silersen image i de silinsin
     image = models.ImageField(blank=True, upload_to='images/')
-
-    def str(self):
+    def __str__(self): #ImagesObject adı ile gözükmemesi için
         return self.title
 
     def image_tag(self):

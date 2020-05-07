@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'ckeditor_uploader',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/uploads/'
+MEDIA_URL = '/uploads/' #eklenen resimler uploads klasörüne eklensin
 MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 
 # ...
