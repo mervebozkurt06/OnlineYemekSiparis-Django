@@ -10,7 +10,7 @@ class FoodImageInLine(admin.TabularInline): #5 li foto eklemek icin
     model = Images #Image tablosu
     extra = 5
 
-class CategoryAdmin(admin.ModelAdmin): #admindeki categories in görüntüsü
+class CategoryAdmin(MPTTModelAdmin): #admindeki categories in görüntüsü
     list_display = ['title', 'status','image_tag']
     list_filter = ['status']
     readonly_fields = ('image_tag',)
@@ -27,7 +27,7 @@ class ImagesAdmin(admin.ModelAdmin): #Imagess tablosu admindeki
     list_display = ['title', 'food', 'image_tag']
     readonly_fields = ('image_tag',)
 
-class CategoryAdmin(DraggableMPTTAdmin):
+class CategoryAdmin2(DraggableMPTTAdmin):
     mptt_indent_field = "title"
     list_display = ('tree_actions',
                     'indented_title',
@@ -65,7 +65,7 @@ class CategoryAdmin(DraggableMPTTAdmin):
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
 
-admin.site.register(Category,CategoryAdmin) #admin de tablo gösterilmesi
+admin.site.register(Category,CategoryAdmin2) #admin de tablo gösterilmesi
 admin.site.register(food,foodAdmin)
 admin.site.register(Images,ImagesAdmin)
 
