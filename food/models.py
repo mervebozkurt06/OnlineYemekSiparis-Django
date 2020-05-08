@@ -23,19 +23,18 @@ class Category(MPTTModel):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.title
+
 
     class MPTTMeta:
         order_insertion_by = ['title']
 
-    def str(self):
+    def __str__(self):
         full_path = [self.title]
         k = self.parent
         while k is not None:
             full_path.append(k.title)
             k = k.parent
-        return '->'.join(full_path[::-1])
+        return '/'.join(full_path[::-1])
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="75"/>'.format(self.image.url))

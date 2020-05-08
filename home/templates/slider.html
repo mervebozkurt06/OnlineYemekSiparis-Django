@@ -2,9 +2,9 @@
 <div class="col-md-9">
     <!-- Start Slider -->
     <div id="slides-shop" class="cover-slides">
-        {% for rs in sliderdata %}
-        <ul class="slides-container">
 
+        <ul class="slides-container">
+            {% for rs in sliderdata %}
             <li class="text-center">
                 <img src="{{ rs.image.url }}" alt="">
                 <div class="container">
@@ -18,9 +18,9 @@
                 </div>
             </li>
 
-
+            {% endfor %}
         </ul>
-        {% endfor %}
+
         <div class="slides-navigation">
             <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
             <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
