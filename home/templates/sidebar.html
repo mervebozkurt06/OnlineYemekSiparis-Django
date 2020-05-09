@@ -1,68 +1,117 @@
 {% load static %}
+{% load mptt_tags %}
+<style>
+    ul#menu-v, #menu-v ul
+    {
+        width:200px; /* Main Menu width */
+        border:1px solid rgba(190,190,190,0.3);
+        list-style:none; margin:0; padding:0;
+        z-index:9;
+    }
+
+    #menu-v li
+    {
+        margin:0;padding:0;
+        position:relative;
+        background-color:#DDDDDD; /*fallback color*/
+        background-color:rgba(255,255,255,0.5);
+        transition:background 0.5s;
+    }
+    #menu-v li:hover
+    {
+        background-color:rgba(102,102,102,0.9);
+    }
+
+    #menu-v a
+    {
+        font:normal 12px Arial;
+        border-top:1px solid rgba(190,190,190,0.3);
+        display:block;
+        color:#000000;
+        text-decoration:none;
+        line-height:30px;
+        padding-left:22px;
+        position:relative;
+    }
+
+    #menu-v li:first-child a
+    {
+        border-top:0;
+    }
+
+    #menu-v a.arrow::after{
+        content:'';
+        position:absolute;
+        display:inline;
+        top:50%;
+        margin-top:-4px;
+        right:8px;
+        border-width:4px;
+        border-style:solid;
+        border-color:transparent transparent transparent white;
+        transition:border-color 0.5s;
+    }
+
+    #menu-v li a.arrow:hover::after
+    {
+        border-color:transparent transparent transparent #CCCCCC;
+    }
+
+    /*Sub level menu items
+    ---------------------------------------*/
+    #menu-v li ul
+    {
+        min-width:180px; /* Sub level menu min width */
+        position:absolute;
+        display:none;
+        left:100%;
+        top:50%; transform:translateY(-50%);
+    }
+
+    #menu-v li:hover > ul
+    {
+        display:block;
+    }
+</style>
 <div class="contact-box-main">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <!-- Start Sidebar -->
+
                 <div class="filter-sidebar-left">
 
                     <div class="title-left">
                         <h3>Categories</h3>
                     </div>
 
-                    <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
-                        {% load mptt_tags %}
+                    <ul id="menu-v">
                         {% recursetree category %}
-                        <div class="list-group-collapse sub-men">
-                            <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">{{ node.title }} <small class="text-muted"></small>
-                            </a>
+                        <li>
+                            <a href="/category/{{ node.slug }}" {% if not node.is_leaf_node %} class="dropdown-toggle" {% endif %}>{{ node.title }}</a>
                             {% if not node.is_leaf_node %}
-                            <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action active">{{ children }} <small class="text-muted"></small></a>
-                                </div>
-                            </div>
+                            <ul class="children">
+                                {{ children }}
+                            </ul>
                             {% endif %}
-                        </div>
+                        </li>
                         {% endrecursetree %}
-                    </div>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Watches</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Fine Jewelry</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion Jewelry</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Engagement & Wedding</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Men's Jewelry</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Vintage & Antique</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Loose Diamonds </a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>Loose Beads</a></li>
+                        <li><a href="products.html"><span class="icon-chevron-right"></span>See All Jewelry & Watches</a></li>
+                        <li style="border:0"> &nbsp;</li>
+                    </ul>
 
 
 
-                    <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
-                        <div class="list-group-collapse sub-men">
-                            <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">Fruits & Drinks <small class="text-muted">(100)</small>
-                            </a>
-                            <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action active">Fruits 1 <small class="text-muted">(50)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Fruits 2 <small class="text-muted">(10)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Fruits 3 <small class="text-muted">(10)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Fruits 4 <small class="text-muted">(10)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Fruits 5 <small class="text-muted">(20)</small></a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="list-group-collapse sub-men">
-                            <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="false" aria-controls="sub-men2">Vegetables
-                                <small class="text-muted">(50)</small>
-                            </a>
-                            <div class="collapse" id="sub-men2" data-parent="#list-group-men">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action">Vegetables 1 <small class="text-muted">(10)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Vegetables 2 <small class="text-muted">(20)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Vegetables 3 <small class="text-muted">(20)</small></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="#" class="list-group-item list-group-item-action"> Grocery  <small class="text-muted">(150) </small></a>
-                        <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(11)</small></a>
-                        <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(22)</small></a>
-                    </div>
                 </div>
-
                 <!-- End Sidebar -->
-
             </div>

@@ -1,0 +1,157 @@
+{% load static %}
+{% load mptt_tags %}
+<style>
+    ul#menu-v, #menu-v ul
+    {
+        width:200px; /* Main Menu width */
+        border:1px solid rgba(190,190,190,0.3);
+        list-style:none; margin:0; padding:0;
+        z-index:9;
+    }
+
+    #menu-v li
+    {
+        margin:0;padding:0;
+        position:relative;
+        background-color:#DDDDDD; /*fallback color*/
+        background-color:rgba(255,255,255,0.5);
+        transition:background 0.5s;
+    }
+    #menu-v li:hover
+    {
+        background-color:rgba(102,102,102,0.9);
+    }
+
+    #menu-v a
+    {
+        font:normal 12px Arial;
+        border-top:1px solid rgba(190,190,190,0.3);
+        display:block;
+        color:#000000;
+        text-decoration:none;
+        line-height:30px;
+        padding-left:22px;
+        position:relative;
+    }
+
+    #menu-v li:first-child a
+    {
+        border-top:0;
+    }
+
+    #menu-v a.arrow::after{
+        content:'';
+        position:absolute;
+        display:inline;
+        top:50%;
+        margin-top:-4px;
+        right:8px;
+        border-width:4px;
+        border-style:solid;
+        border-color:transparent transparent transparent white;
+        transition:border-color 0.5s;
+    }
+
+    #menu-v li a.arrow:hover::after
+    {
+        border-color:transparent transparent transparent #CCCCCC;
+    }
+
+    /*Sub level menu items
+    ---------------------------------------*/
+    #menu-v li ul
+    {
+        min-width:180px; /* Sub level menu min width */
+        position:absolute;
+        display:none;
+        left:100%;
+        top:50%; transform:translateY(-50%);
+    }
+
+    #menu-v li:hover > ul
+    {
+        display:block;
+    }
+</style>
+<div id="sidebar" class="span3">
+    <div class="well well-small">
+        <ul id="menu-v">
+            {% recursetree category %}
+            <li>
+                <a href="/category/{{ node.slug }}" {% if not node.is_leaf_node %} class="arrow" {% endif %}>{{ node.title }}</a>
+                {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+                {% endif %}
+            </li>
+            {% endrecursetree %}
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Watches</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Fine Jewelry</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion Jewelry</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Engagement & Wedding</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Men's Jewelry</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Vintage & Antique</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Loose Diamonds </a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Loose Beads</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>See All Jewelry & Watches</a></li>
+            <li style="border:0"> &nbsp;</li>
+            <li> <a class="totalInCart" href="cart.html"><strong>Total Amount  <span class="badge badge-warning pull-right" style="line-height:18px;">$448.42</span></strong></a></li>
+        </ul>
+    </div>
+
+    <div class="well well-small alert alert-warning cntr">
+        <h2>50% Discount</h2>
+        <p>
+            only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
+        </p>
+    </div>
+    <div class="well well-small"><a href="#"><img src="{% static 'assets/img/paypal.jpg' %}"
+                                                  alt="payment method paypal"></a>
+    </div>
+    <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+    <br>
+    <br>
+    <ul class="nav nav-list promowrapper">
+        <li>
+            <div class="thumbnail">
+                <a class="zoomTool" href="product_details.html" title="add to cart"><span
+                        class="icon-search"></span> QUICK VIEW</a>
+                <img src="{% static 'assets/img/bootstrap-ecommerce-templates.png' %}"
+                     alt="bootstrap ecommerce templates">
+                <div class="caption">
+                    <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span
+                            class="pull-right">$22.00</span>
+                    </h4>
+                </div>
+            </div>
+        </li>
+        <li style="border:0"> &nbsp;</li>
+        <li>
+            <div class="thumbnail">
+                <a class="zoomTool" href="product_details.html" title="add to cart"><span
+                        class="icon-search"></span> QUICK VIEW</a>
+                <img src="{% static 'assets/img/shopping-cart-template.png' %}" alt="shopping cart template">
+                <div class="caption">
+                    <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span
+                            class="pull-right">$22.00</span>
+                    </h4>
+                </div>
+            </div>
+        </li>
+        <li style="border:0"> &nbsp;</li>
+        <li>
+            <div class="thumbnail">
+                <a class="zoomTool" href="product_details.html" title="add to cart"><span
+                        class="icon-search"></span> QUICK VIEW</a>
+                <img src="{% static 'assets/img/bootstrap-template.png' %}" alt="bootstrap template">
+                <div class="caption">
+                    <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span
+                            class="pull-right">$22.00</span>
+                    </h4>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
