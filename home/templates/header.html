@@ -18,7 +18,7 @@
                     <ul>
                         <li><a href="#"><i class="fa fa-user s_color"></i> Hesabım</a></li>
                         <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                        <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
+                        <li><a href="/iletisim"><i class="fas fa-headset"></i> İletişim</a></li>
                     </ul>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="{% static 'images/logo.png' %} " class="logo" alt=""></a>
+                <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %} " class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
 
@@ -150,11 +150,16 @@
 <!-- Start Top Search -->
 <div class="top-search">
     <div class="container">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search">
-            <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-        </div>
+        <form action="/search/" method="POST">
+            <div class="input-group">
+
+                {% csrf_token %}
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input name="query" type="text" class="form-control" placeholder="Search">
+                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+
+            </div>
+        </form>
     </div>
 </div>
 <!-- End Top Search -->

@@ -4,6 +4,9 @@ from django.db import models
 # Create your models here.
 from django.forms import ModelForm, TextInput, Textarea
 
+
+
+
 class Setting(models.Model):
     STATUS = (
         ('True', 'Evet'),
@@ -66,6 +69,9 @@ class ContactFormu(ModelForm):
             'email': TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}),
             'message': Textarea(attrs={'class':'form-control', 'placeholder':'Your Message...','rows':'5'}),
         }
+
+
+
 
 
 

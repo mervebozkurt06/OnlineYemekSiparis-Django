@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from food.models import Category, food, Images #modelden Category food ve Images eklendi
+from food.models import Category, food, Images, Comment  # modelden Category food ve Images eklendi
 
 class FoodImageInLine(admin.TabularInline): #5 li foto eklemek icin
     model = Images #Image tablosu
@@ -24,7 +24,7 @@ class foodAdmin(admin.ModelAdmin): #admindeki foods tablosu
 
 
 class ImagesAdmin(admin.ModelAdmin): #Imagess tablosu admindeki
-    list_display = ['title', 'food', 'image_tag']
+    list_display = ['title', 'Food', 'image_tag']
     readonly_fields = ('image_tag',)
 
 class CategoryAdmin2(DraggableMPTTAdmin):
@@ -64,10 +64,14 @@ class CategoryAdmin2(DraggableMPTTAdmin):
         return instance.products_cumulative_count
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject','comment','Food','user','status']
+    list_filter = ['status']
 
 admin.site.register(Category,CategoryAdmin2) #admin de tablo gösterilmesi
 admin.site.register(food,foodAdmin)
 admin.site.register(Images,ImagesAdmin)
+admin.site.register(Comment,CommentAdmin)
 
 
 

@@ -29,6 +29,10 @@ urlpatterns = [
     path('food/', include('food.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('category/<int:id>/<slug:slug>/',views.category_foods, name='category_foods'),
+    path('food/<int:id>/<slug:slug>/',views.food_detail, name='food_detail'),
+    path('search/',views.food_search, name='food_search'), #home daki views leri tanıyor
+
 ]
 if settings.DEBUG: #new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

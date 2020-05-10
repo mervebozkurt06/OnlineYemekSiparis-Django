@@ -1,0 +1,65 @@
+
+{% extends "homebase.html" %}
+
+{% block title %} Food Search Results {% endblock %}
+{% block keywords %} {{ categorydata.keywords }} {% endblock %}
+{% block description %} {{ categorydata.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Hakkımızda</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">{{ categorydata.title }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start About Page  -->
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+
+
+            <table cellpadding="3" width="1200">
+                <tr>
+                    <th>Image</th>
+                    <th>Food Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+                {% for rs in foods %}
+                <tr>
+                    <td> <a href="/Food/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url}}" style="height: 100px;" alt=""></a> </td>
+                    <td> <h4 class="food-name"> {{ rs.title }} </h4></td>
+                    <a href="/Food/{{ rs.id }}/{{ rs.slug }}"></a>
+                    <td> <h4> {{ rs.category }}</h4></td>
+                    <a href="/category/{{ rs.category.id }}/{{ rs.category.slug }}"></a>
+                    <td> <h4>${{ rs.price }}</h4></td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
