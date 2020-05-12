@@ -33,12 +33,18 @@ def index(request):
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'hakkimizda'}
+    category = Category.objects.all()
+    context = {'category': category,
+               'setting': setting,
+               'page':'hakkimizda'}
     return render(request, 'hakkimizda.html', context)
 
 def referanslar(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting}
+    category = Category.objects.all()
+    context = {'setting': setting,
+               'category': category
+               }
     return render(request, 'referanslarimiz.html', context)
 
 def iletisim(request):
@@ -58,7 +64,10 @@ def iletisim(request):
 
     setting = Setting.objects.get(pk=1)  #post edilmezse bura çalışır
     form=ContactFormu()
-    context = {'setting': setting}
+
+    category = Category.objects.all()
+    context = {'setting': setting,
+               'category': category}
     return render(request, 'iletisim.html', context)
 
 def category_foods(request,id,slug):
@@ -156,7 +165,7 @@ def signup_view(request):
     category = Category.objects.all()
     context = {'category': category,
                'form': form,
-              }
+               }
     return render(request, 'signup.html', context)
 
 

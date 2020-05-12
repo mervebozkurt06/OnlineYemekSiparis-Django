@@ -22,36 +22,39 @@
 
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-                        {% if user.id is not None %}
-                        <div class="our-link">
-                            <ul>
-                                <li><a href="#" style="color: white" ><i class="fa fa-user s_color"></i> {{ user.first_name }}</a></li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="shop-detail.html">My Orders</a></li>
-                                <li><a href="cart.html">My Comments</a></li>
-                                <li><a href="checkout.html">My Whislist</a></li>
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        </div>
+                {% if user.id is not None %}
+                <div class="our-link">
+                    <ul>
+                        <li><a href="/user" style="color: white" >
+                            <i class="fa fa-user s_color"></i>
+                            {{ user.first_name }}</a>
+                        </li>
+                        <li><a href="/user">My Account</a></li>
+                        <li><a href="shop-detail.html">My Orders</a></li>
+                        <li><a href="cart.html">My Comments</a></li>
+                        <li><a href="checkout.html">My Whislist</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
 
-                        {% else %}
-                        <div class="our-link">
-                            <ul>
-                                <li><a style="color: white" href="/signup">Sign Up!</a></li>
-                                <li><a style="color: white" href="/login">LOGIN</a></li>
-                            </ul>
-                        </div>
-                        {% endif %}
+                {% else %}
+                <div class="our-link">
+                    <ul>
+                        <li><a style="color: white" href="/signup">Sign Up!</a></li>
+                        <li><a style="color: white" href="/login">LOGIN</a></li>
+                    </ul>
+                </div>
+                {% endif %}
 
 
 
-                        <ul class="dropdown-menu">
-                            <li><a href="my-account.html">My Account</a></li>
-                            <li><a href="shop-detail.html">My Orders</a></li>
-                            <li><a href="cart.html">My Comments</a></li>
-                            <li><a href="checkout.html">My Whislist</a></li>
-                            <li><a href="/logout">Logout</a></li>
-                        </ul>
+                <ul class="dropdown-menu">
+                    <li><a href="my-account.html">My Account</a></li>
+                    <li><a href="shop-detail.html">My Orders</a></li>
+                    <li><a href="cart.html">My Comments</a></li>
+                    <li><a href="checkout.html">My Whislist</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
 
             </div>
         </div>

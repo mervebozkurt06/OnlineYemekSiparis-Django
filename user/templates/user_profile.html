@@ -1,0 +1,123 @@
+
+{% extends "homebase.html" %}
+
+{% block title %}  {{ profile.user_name }} Profile {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>User Profile</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">User Profile</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Contact Us  -->
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+
+                <div class="contact-form-right">
+
+                    {% include "user_panel.html" %}
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-sm-12">
+                <div class="contact-info-left">
+                    <h2>User Information</h2>
+
+                    <table class="table">
+
+                        <tr>
+                            <th></th>
+                            <td class="thumbnail-img">
+                                <a href="#">
+                                    <img style="height: 70px" class="img-fluid" src="{{ profile.image.url }}" alt="" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="name-pr">Name Surname</th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.user_name }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.user.email }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Phone </th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.phone }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.address }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.city }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Country</th>
+                            <td >
+                                <a href="#">
+                                    {{ profile.country }}
+                                </a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+
+{% endblock %}
+
+
+
+
