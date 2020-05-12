@@ -43,7 +43,7 @@ class Category(MPTTModel):
     image_tag.short_description = 'Image'
 
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'slug': self.slug})
+        return reverse('category_detail', kwargs={'slug': self.slug}) #otomatik slug için
 
 class food(models.Model):
     STATUS = (
@@ -58,7 +58,7 @@ class food(models.Model):
     price = models.FloatField()
     amount = models.IntegerField() #miktar
     detail = RichTextUploadingField()
-    slug = models.SlugField(blank=True,max_length=150)
+    slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -69,6 +69,12 @@ class food(models.Model):
     def image_tag(self):
         return mark_safe('<img src="{}" height="75"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
+
+    def catimg_tag(self):
+        return mark_safe((Category.status))
+
+    def get_absolute_url(self):
+        return reverse('food_detail', kwargs={'slug': self.slug})
 
 
 

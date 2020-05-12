@@ -1,64 +1,58 @@
 {% load static %}
+
 <!-- Start Main Top -->
 <div class="main-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="custom-select-box">
-                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                        <option>¥ JPY</option>
-                        <option>$ USD</option>
-                        <option>€ EUR</option>
-                    </select>
-                </div>
+
                 <div class="right-phone-box">
                     <p>Call US :- <a href="#"> +11 900 800 100</a></p>
                 </div>
                 <div class="our-link">
                     <ul>
-                        <li><a href="#"><i class="fa fa-user s_color"></i> Hesabım</a></li>
                         <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
                         <li><a href="/iletisim"><i class="fas fa-headset"></i> İletişim</a></li>
                     </ul>
                 </div>
+
+
             </div>
+
+
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="login-box">
-                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                        <option>Register Here</option>
-                        <option>Sign In</option>
-                    </select>
-                </div>
-                <div class="text-slid-box">
-                    <div id="offer-box" class="carouselTicker">
-                        <ul class="offer-box">
-                            <li>
-                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT80
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT30
-                            </li>
-                            <li>
-                                <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                            </li>
+
+                        {% if user.id is not None %}
+                        <div class="our-link">
+                            <ul>
+                                <li><a href="#" style="color: white" ><i class="fa fa-user s_color"></i> {{ user.first_name }}</a></li>
+                                <li><a href="my-account.html">My Account</a></li>
+                                <li><a href="shop-detail.html">My Orders</a></li>
+                                <li><a href="cart.html">My Comments</a></li>
+                                <li><a href="checkout.html">My Whislist</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </div>
+
+                        {% else %}
+                        <div class="our-link">
+                            <ul>
+                                <li><a style="color: white" href="/signup">Sign Up!</a></li>
+                                <li><a style="color: white" href="/login">LOGIN</a></li>
+                            </ul>
+                        </div>
+                        {% endif %}
+
+
+
+                        <ul class="dropdown-menu">
+                            <li><a href="my-account.html">My Account</a></li>
+                            <li><a href="shop-detail.html">My Orders</a></li>
+                            <li><a href="cart.html">My Comments</a></li>
+                            <li><a href="checkout.html">My Whislist</a></li>
+                            <li><a href="/logout">Logout</a></li>
                         </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -147,19 +141,59 @@
         <!-- End Side Menu -->
     </nav>
 </header>
+
+<script>
+
+    $(function() {
+        $("#query").autocomplete({
+            source: "/search_auto/",
+            select: function (event, ui) { //item selected
+                AutoCompleteSelectHandler(event, ui)
+            },
+            minLength: 2,
+        });
+    });
+
+    function AutoCompleteSelectHandler(event, ui)
+    {
+        var selectedObj = ui.item;
+    }
+
+</script>
+
+
+
 <!-- Start Top Search -->
 <div class="top-search">
     <div class="container">
-        <form action="/search/" method="POST">
+
+
+        <form action="/search/" method="post">
             <div class="input-group">
 
                 {% csrf_token %}
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input name="query" type="text" class="form-control" placeholder="Search">
+                <input id="query"  type="text" class="form-control" placeholder="Search">
                 <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+
+                {% load mptt_tags %}
+                <select name="catid" class="search">
+                    <option value="0">All Categories</option>
+                    {% recursetree category %}
+                    {% if node.is_leaf_node %}
+                    <option value="{{ node.id }}">{{ node.title}}</option>
+                    {% endif %}
+                    {% if not node.is_leaf_node %}
+                    <optgroup label="{{ node.title }}">
+                        {{ children }}
+                    </optgroup>
+                    {% endif %}
+                    {% endrecursetree %}
+                </select>
 
             </div>
         </form>
+
     </div>
 </div>
 <!-- End Top Search -->

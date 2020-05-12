@@ -17,10 +17,12 @@ class CategoryAdmin(MPTTModelAdmin): #admindeki categories in görüntüsü
 
 
 class foodAdmin(admin.ModelAdmin): #admindeki foods tablosu
-    list_display = ['title','category','price','amount', 'image_tag', 'status']
+    list_display = ['title','category','price','amount', 'image_tag', 'catimg_tag','status']
     list_filter = ['status','category']
     inlines = [FoodImageInLine] #aşağıdaki 5 resmi eklemek için
-    readonly_fields = ('image_tag',) # image ların resim olarak görünmesi için
+    readonly_fields = ('image_tag','catimg_tag',) # image ların resim olarak görünmesi için
+    prepopulated_fields = {'slug':('title',)} #slug ın nerden oluştuğunu (otomatik slug için)
+
 
 
 class ImagesAdmin(admin.ModelAdmin): #Imagess tablosu admindeki
@@ -35,6 +37,7 @@ class CategoryAdmin2(DraggableMPTTAdmin):
                     'related_products_cumulative_count')
     list_display_links = ('indented_title',)
     list_filter = ['status']
+    prepopulated_fields = {'slug':('title',)} #slug ın nerden oluştuğunu (otomatik slug için)
 
 
     def get_queryset(self, request):

@@ -1,0 +1,88 @@
+
+{% extends "homebase.html" %}
+
+{% block title %} Login {{ setting.company }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>LOGIN</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Login</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Contact Us  -->
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+                <div class="contact-form-right">
+
+                    <h2>LOGIN FORM</h2>
+                    <hr>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert" style="display: none"></div>
+                    {{ message }}
+                    {% endfor%}
+                    {% endif %}
+
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+
+                        {% csrf_token %}
+
+                            <div class="col-md-6 mb-3">
+                                <label for="InputName" class="mb-0">First Name</label>
+                                <input  name="username" type="text" class="form-control" id="InputName" placeholder="User Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="InputPassword1" class="mb-0">Password</label>
+                                <input name="password" type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                            <button name="Login" type="submit" class="btn hvr-hover">Login</button>
+                            </div>
+
+
+
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+
+{% endblock %}
+
+
+
+

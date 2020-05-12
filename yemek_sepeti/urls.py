@@ -32,6 +32,10 @@ urlpatterns = [
     path('category/<int:id>/<slug:slug>/',views.category_foods, name='category_foods'),
     path('food/<int:id>/<slug:slug>/',views.food_detail, name='food_detail'),
     path('search/',views.food_search, name='food_search'), #home daki views leri tanıyor
+    path('search_auto/',views.food_search_auto, name='food_search_auto'),#food_search_auto adlı viewdeki fonks
+    path('logout/',views.logout_view, name='logout_view'),
+    path('login/',views.login_view, name='login_view'),
+    path('signup/',views.signup_view, name='signup_view'),
 
 ]
 if settings.DEBUG: #new
