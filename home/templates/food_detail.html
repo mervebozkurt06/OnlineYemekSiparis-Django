@@ -72,23 +72,30 @@
 
             <div class="col-xl-7 col-lg-7 col-md-6">
                 <div class="single-product-details">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert-danger-{{ message.tags }}" role="alert">
+                        <h3 >{{ message }}</h3>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
                     <h2>{{ Food.title }} </h2>
                     <h5> <del>$ 60.00</del> ${{ Food.price }}</h5>
                     <p class="available-stock"><span> More than 20 available / <a href="#">8 sold </a></span><p>
                     <h4>Short Description:</h4>
                     <p>{{ Food.description }} </p>
-                    <div class="col-md-2">
-                        <div class="form-group quantity-box">
-                            <label class="control-label">Adet:</label>
-                            <input class="form-control" value="1" min="0" max="{{ Food.amount}}" type="number">
-                        </div>
-                    </div>
+
+
 
                     <div class="price-box-bar">
-                        <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>
-                            <a class="btn hvr-hover" data-fancybox-close="" href="#">Add to cart</a>
-                        </div>
+                        <form action="/order/addtocart/{{ Food.id }}" method="post">
+                            {% csrf_token %}
+                            <div class="cart-and-bay-btn">
+                                <label class="control-label">Adet:</label>
+                                <input name="quantity" class="form-control" value="1" min="0" max="{{ Food.amount}}" type="number">
+                                <button type="submit" class="btn hvr-hover" data-fancybox-close="" >Add to cart</button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="add-to-btn">
