@@ -65,6 +65,7 @@ def iletisim(request):
     setting = Setting.objects.get(pk=1)  #post edilmezse bura çalışır
     form=ContactFormu()
 
+
     category = Category.objects.all()
     context = {'setting': setting,
                'category': category}
