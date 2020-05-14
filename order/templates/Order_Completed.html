@@ -1,0 +1,44 @@
+
+{% extends "homebase.html" %}
+
+{% block title %} Hakkımızda- {{ setting.company }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Hakkımızda</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Hakkımızda</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start About Page  -->
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+               <p> Dear {{ user.first_name }}</p>
+               <p> Your order is completed</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

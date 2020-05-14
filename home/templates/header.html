@@ -20,6 +20,7 @@
             </div>
 
 
+
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
                 {% if user.id is not None %}
@@ -30,6 +31,7 @@
                             {{ user.first_name }}</a>
                         </li>
                         <li><a href="/user">My Account</a></li>
+                        <li><a href="/shopcart">My Cart</a></li>
                         <li><a href="shop-detail.html">My Orders</a></li>
                         <li><a href="cart.html">My Comments</a></li>
                         <li><a href="checkout.html">My Whislist</a></li>
@@ -99,14 +101,15 @@
             </div>
             <!-- /.navbar-collapse -->
 
+
+
             <!-- Start Atribute Navigation -->
-            <div class="attr-nav">
+            <div class="">
                 <ul>
-                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                     <li class="side-menu">
-                        <a href="#">
+                        <a href="/shopcart/">
                             <i class="fa fa-shopping-bag"></i>
-                            <span class="badge">3</span>
+                            <span class="badge">{{ request.session.cart_items }}</span>
                             <p>My Cart</p>
                         </a>
                     </li>
@@ -114,34 +117,7 @@
             </div>
             <!-- End Atribute Navigation -->
         </div>
-        <!-- Start Side Menu -->
-        <div class="side">
-            <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-            <li class="cart-box">
-                <ul class="cart-list">
-                    <li>
-                        <a href="#" class="photo"><img src="{% static 'images/img-pro-01.jpg' %} " class="cart-thumb" alt="" /></a>
-                        <h6><a href="#">Delica omtantur </a></h6>
-                        <p>1x - <span class="price">$80.00</span></p>
-                    </li>
-                    <li>
-                        <a href="#" class="photo"><img src="{% static 'images/img-pro-02.jpg' %} " class="cart-thumb" alt="" /></a>
-                        <h6><a href="#">Omnes ocurreret</a></h6>
-                        <p>1x - <span class="price">$60.00</span></p>
-                    </li>
-                    <li>
-                        <a href="#" class="photo"><img src="{% static 'images/img-pro-03.jpg' %} " class="cart-thumb" alt="" /></a>
-                        <h6><a href="#">Agam facilisis</a></h6>
-                        <p>1x - <span class="price">$40.00</span></p>
-                    </li>
-                    <li class="total">
-                        <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                        <span class="float-right"><strong>Total</strong>: $180.00</span>
-                    </li>
-                </ul>
-            </li>
-        </div>
-        <!-- End Side Menu -->
+
     </nav>
 </header>
 

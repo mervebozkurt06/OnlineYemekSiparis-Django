@@ -11,15 +11,18 @@ from django.shortcuts import render
 from food.models import food, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
 from home.models import Setting, ContactFormu, ContactFormMessage
+from order.models import ShopCart
 
 
 def index(request):
+    current_user = request.user
     setting = Setting.objects.get(pk=1)
     sliderdata = food.objects.all()[:4]
     category = Category.objects.all()
     dayfoods = food.objects.all()[:4]
     lastfoods = food.objects.all().order_by('-id')[:4]
     randomfoods = food.objects.all().order_by('?')[:4]
+    request.session['cart_items'] = ShopCart.objects.filter(user_id=current_user.id).count()  # sepetteki ürünlerin sayısı alındı
 
     context = {'setting': setting,
                'category': category,
