@@ -9,7 +9,7 @@
 
                 <div class="our-link">
                     <ul>
-                        <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                        <li><a href="/sss"><i class="fas fa-location-arrow"></i> Sıkça Sorulan Sorular</a></li>
                         <li><a href="/iletisim"><i class="fas fa-headset"></i> İletişim</a></li>
                     </ul>
                 </div>
@@ -39,9 +39,9 @@
                         </li>
                         <li><a href="/user">My Account</a></li>
                         <li><a href="/shopcart">My Cart</a></li>
-                        <li><a href="shop-detail.html">My Orders</a></li>
-                        <li><a href="cart.html">My Comments</a></li>
-                        <li><a href="checkout.html">My Whislist</a></li>
+                        <li><a href="/user/orders">My Orders</a></li>
+                        <li><a href="/user/comments">My Comments</a></li>
+
                         <li><a href="/logout">Logout</a></li>
                     </ul>
                 </div>
@@ -57,13 +57,7 @@
 
 
 
-                <ul class="dropdown-menu">
-                    <li><a href="my-account.html">My Account</a></li>
-                    <li><a href="shop-detail.html">My Orders</a></li>
-                    <li><a href="cart.html">My Comments</a></li>
-                    <li><a href="checkout.html">My Whislist</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
+
 
             </div>
         </div>
@@ -90,18 +84,6 @@
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="nav-item active"><a class="nav-link" href="/">Anasayfa</a></li>
                     <li class="nav-item">       <a class="nav-link" href="/hakkimizda">Hakkımızda</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="shop.html">Sidebar Shop</a></li>
-                            <li><a href="shop-detail.html">Shop Detail</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="my-account.html">My Account</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="/referanslar">Referanslar</a></li>
                     <li class="nav-item"><a class="nav-link" href="/iletisim">İletişim</a></li>
                 </ul>
@@ -110,9 +92,11 @@
 
 
 
+
             <!-- Start Atribute Navigation -->
             <div class="">
                 <ul>
+
                     <li class="side-menu">
                         <a href="/shopcart/">
                             <i class="fa fa-shopping-bag"></i>
@@ -122,64 +106,45 @@
                     </li>
                 </ul>
             </div>
+            <div class="attr-nav">
+                <ul>
+                    <li class="search"><a href=""><i class="fa fa-search"></i></a></li>
+                </ul>
+            </div>
             <!-- End Atribute Navigation -->
         </div>
 
     </nav>
 </header>
 
-<script>
 
-    $(function() {
-        $("#query").autocomplete({
-            source: "/search_auto/",
-            select: function (event, ui) { //item selected
-                AutoCompleteSelectHandler(event, ui)
-            },
-            minLength: 2,
-        });
-    });
 
-    function AutoCompleteSelectHandler(event, ui)
-    {
-        var selectedObj = ui.item;
-    }
 
-</script>
+
+
 
 
 
 <!-- Start Top Search -->
 <div class="top-search">
     <div class="container">
-
-
         <form action="/search/" method="post">
             <div class="input-group">
 
                 {% csrf_token %}
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input id="query"  type="text" class="form-control" placeholder="Search">
+                <input id="query" type="text" class="form-control" placeholder="Search">
                 <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-
-                {% load mptt_tags %}
-                <select name="catid" class="search">
-                    <option value="0">All Categories</option>
-                    {% recursetree category %}
-                    {% if node.is_leaf_node %}
-                    <option value="{{ node.id }}">{{ node.title}}</option>
-                    {% endif %}
-                    {% if not node.is_leaf_node %}
-                    <optgroup label="{{ node.title }}">
-                        {{ children }}
-                    </optgroup>
-                    {% endif %}
-                    {% endrecursetree %}
-                </select>
 
             </div>
         </form>
-
     </div>
 </div>
 <!-- End Top Search -->
+
+
+
+
+
+
+

@@ -45,11 +45,39 @@ class Category(MPTTModel):
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug}) #otomatik slug için
 
+class Restaurant(models.Model):
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE) #Category modeli ile ilişkili
+    title = models.CharField(max_length=150)
+    keywords = models.CharField(blank=True,max_length=255)
+    description = models.CharField(blank=True,max_length=255)
+    #image = models.ImageField(blank=True, upload_to='images/')
+    address = models.CharField(blank=True, max_length=100)
+    phone = models.CharField(blank=True, max_length=15)
+    fax = models.CharField(blank=True, max_length=15)
+    email = models.CharField(blank=True, max_length=50)
+    slug = models.SlugField(null=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="75"/>'.format(self.image.url))
+    image_tag.short_description = 'Image'
+
+
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug}) #otomatik slug için
+
+
 class food(models.Model):
     STATUS = (
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE) #Category modeli ile ilişkili
     title = models.CharField(max_length=150)
     keywords = models.CharField(blank=True,max_length=255)

@@ -1,0 +1,95 @@
+
+{% extends "homebase.html" %}
+
+{% block title %}  {{ profile.first_name }} Order List {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>User Orders</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">User Orders</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Contact Us  -->
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+
+                <div class="contact-form-right">
+
+                    {% include "user_panel.html" %}
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-sm-12">
+                <div class="contact-info-left">
+                    <h2>User Order List</h2>
+
+                    <table class="table">
+
+                        <tr>
+                            <th></th>
+
+                        </tr>
+                        <tr>
+                            <th class="name-pr">Id</th>
+                            <th class="name-pr">First Name</th>
+                            <th class="name-pr">Last Name</th>
+                            <th class="name-pr">Total</th>
+                            <th class="name-pr">Status</th>
+                            <th class="name-pr">Date</th>
+                            <th class="name-pr">Detail</th>
+                        </tr>
+                        {% for rs in orders %}
+                        <tr>
+
+                            <td ><a href="#">{{ rs.id }}</a></td>
+                            <td ><a href="#">{{ rs.first_name }}</a></td>
+                            <td ><a href="#">{{ rs.last_name }}</a></td>
+                            <td ><a href="#">{{ rs.total }}</a></td>
+                            <td ><a href="#">{{ rs.status }}</a></td>
+                            <td ><a href="#">{{ rs.create_at }}</a></td>
+                            <td ><a class="btn hvr-hover" href="/user/orderdetail/{{ rs.id }}">Detay</a></td>
+
+                        </tr>
+                        {% endfor %}
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+
+{% endblock %}
+
+
+
+

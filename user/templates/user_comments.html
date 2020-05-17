@@ -1,0 +1,94 @@
+
+{% extends "homebase.html" %}
+
+{% block title %}  Order Comments {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Order Comments</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Order Comments</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Contact Us  -->
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+
+                <div class="contact-form-right">
+
+                    {% include "user_panel.html" %}
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-sm-12">
+                <div class="contact-info-left">
+                    <h2>Order Comments</h2>
+
+                    <table class="table">
+
+                        <tr>
+                            <th></th>
+
+                        </tr>
+                        <tr>
+                            <th class="name-pr">Food</th>
+                            <th class="name-pr">Rate</th>
+                            <th class="name-pr">Subject</th>
+                            <th class="name-pr">Comment</th>
+                            <th class="name-pr">Status</th>
+                            <th class="name-pr">Date</th>
+                            <th class="name-pr">Delete</th>
+                        </tr>
+                        {% for rs in comments %}
+                        <tr>
+                            <td ><a  href="/food/{{ rs.Food_id}}/{{ rs.Food.slug}}"><strong>{{ rs.Food.title }}</strong></a></td>
+                            <td ><a href="#">{{ rs.rate }}</a></td>
+                            <td ><a href="#">{{ rs.subject }}</a></td>
+                            <td ><a href="#">{{ rs.comment }}</a></td>
+                            <td ><a href="#">{{ rs.status }}</a></td>
+                            <td ><a href="#">{{ rs.create_at }}</a></td>
+                            <td ><a class="btn hvr-hover" onclick="return confirm('will be delete! Are you sure?')" href="/user/deletecomment/{{ rs.id }}">Delete</a></td>
+
+                        </tr>
+                        {% endfor %}
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+
+{% endblock %}
+
+
+
+

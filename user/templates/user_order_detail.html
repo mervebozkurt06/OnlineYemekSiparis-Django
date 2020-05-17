@@ -1,0 +1,174 @@
+
+{% extends "homebase.html" %}
+
+{% block title %}  Order Detail{% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }}{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+{% endblock%}
+
+
+
+
+{% block content %}
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Order Detail</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Order Detail</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Contact Us  -->
+<div class="contact-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+
+                <div class="contact-form-right">
+
+                    {% include "user_panel.html" %}
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-sm-12">
+
+
+
+                <h2>Order Shipping Information</h2>
+                <table class="table">
+
+
+                    <tr>
+                        <th class="name-pr">Name Surname</th>
+                        <td >
+                            <a href="#">
+                                {{ order.user_name }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td >
+                            <a href="#">
+                                {{ order.user.email }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Phone </th>
+                        <td >
+                            <a href="#">
+                                {{ order.phone }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td >
+                            <a href="#">
+                                {{ order.address }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>City/Country</th>
+                        <td >
+                            <a href="#">
+                                {{ order.city }}/{{ order.country }}
+                            </a>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <th>Status</th>
+                        <td >
+                            <a href="#">
+                                {{ order.status }}
+                            </a>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>Date</th>
+                        <td >
+                            <a href="#">
+                                {{ order.create_at }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Shipping Info</th>
+                        <td >
+                            <a href="#">
+                                {{ order.adminnote }}
+                            </a>
+                        </td>
+                    </tr>
+
+                </table>
+               <div class="contact-info-left">
+                    <h2>Order Detail</h2>
+
+                    <table class="table">
+
+                        <tr>
+                            <th></th>
+
+                        </tr>
+                        <tr>
+                            <th class="name-pr">Image</th>
+                            <th class="name-pr">Food Name</th>
+                            <th class="name-pr">Price</th>
+                            <th class="name-pr">Quantity</th>
+                            <th class="name-pr">Amount</th>
+                            <th class="name-pr">Status</th>
+                            <th class="name-pr">Date</th>
+                        </tr>
+
+                        {% for rs in orderitems %}
+                        <tr>
+
+
+                            <td >
+                                <a href="/food/{{ rs.Food_id}}/{{ rs.Food.slug}}">
+                                    <img style="height: 50px; " src="{{ rs.Food.image.url}}"></a></td>
+                            <td ><a href="#">{{ rs.Food.title }}</a></td>
+                            </a>
+                            <td ><a href="#">{{ rs.price }}</a></td>
+                            <td ><a href="#">{{ rs.quantity }}</a></td>
+                            <td ><a href="#">{{ rs.amount }}</a></td>
+                            <td ><a href="#">{{ rs.status }}</a></td>
+                            <td ><a href="#">{{ rs.create_at }}</a></td>
+
+                        </tr>
+                        {% endfor %}
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+
+{% endblock %}
+
+
+
+

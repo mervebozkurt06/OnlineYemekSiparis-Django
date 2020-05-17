@@ -1,0 +1,61 @@
+
+{% extends "homebase.html" %}
+
+{% block title %} Sıkça Sorulan Sorular {% endblock %}
+{% block keywords %}  {% endblock %}
+{% block description %} {% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url}}">
+
+{% endblock%}
+
+
+
+
+{% block content %}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Sıkça Sorulan Sorular</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Sıkça Sorulan Sorular</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start About Page  -->
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+
+
+
+
+
+            <table cellpadding="3" width="1200">
+                {% for rs in faq %}
+                <tr>
+                    <th class="name-pr"><strong>{{rs.question}}</strong></th>
+                </tr>
+                <tr>
+                    <td> <h4>{{ rs.answer }}</h4></td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

@@ -8,9 +8,9 @@ from django.shortcuts import render
 
 
 # Create your views here.
-from food.models import food, Category, Images, Comment
+from food.models import food, Category, Images, Comment, Restaurant
 from home.forms import SearchForm, SignUpForm
-from home.models import Setting, ContactFormu, ContactFormMessage
+from home.models import Setting, ContactFormu, ContactFormMessage, UserProfile, FAQ
 from order.models import ShopCart
 
 
@@ -39,7 +39,8 @@ def hakkimizda(request):
     category = Category.objects.all()
     context = {'category': category,
                'setting': setting,
-               'page':'hakkimizda'}
+               'page':'hakkimizda'
+               }
     return render(request, 'hakkimizda.html', context)
 
 def referanslar(request):
@@ -52,9 +53,9 @@ def referanslar(request):
 
 def iletisim(request):
 
-    if request.method == 'POST':  # form post ediliyor
-        form = ContactFormu(request.POST)
-        if form.is_valid():
+    if request.method == 'POST':  # form post ediliyorsa
+        form = ContactFormu(request.POST) #sitede gösterilen ContactFormundaki verileri forma al
+        if form.is_valid(): #form validse yani bilgiler doğru girilmişse
             data = ContactFormMessage()  # model ile bağlantı kur
             data.name = form.cleaned_data['name'] #formdan bilgi al
             data.email = form.cleaned_data['email']
@@ -65,10 +66,8 @@ def iletisim(request):
             messages.success(request, "Mesajınız başarı ile gönderilmiştir. Teşekkür Ederiz")
             return HttpResponseRedirect('/iletisim')
 
-    setting = Setting.objects.get(pk=1)  #post edilmezse bura çalışır
+    setting = Setting.objects.get(pk=1)  #post edilmediyse bu sayfada bunu çalıştır(bilgi için contactus)
     form=ContactFormu()
-
-
     category = Category.objects.all()
     context = {'setting': setting,
                'category': category}
@@ -97,18 +96,12 @@ def food_detail(request,id,slug):
     return render(request,'food_detail.html',context)
 
 def food_search(request):
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
+    if request.method == 'POST': #post edildi mi
+        form = SearchForm(request.POST) #searchform unu çağırıp validmi bak
         if form.is_valid():
             category = Category.objects.all()
             query = form.cleaned_data['query'] # formdan bilgiyi al
-            catid = form.cleaned_data['catid']#sonradan eklendi
-            if catid==0:#sonradan eklendi
-                foods = food.objects.filter(title__icontains=query)#sonradan eklendi
-            else:#sonradan eklendi
-                foods = food.objects.filter(title__icontains=query,category_id=catid)#sonradan eklendi
-
-            #foods = food.objects.filter(title__icontains=query) #Select * form product where title like %query%
+            foods = food.objects.filter(title__icontains=query) #Select * form product where title like %query%
             context = {'foods':foods,
                        'category':category,
                        }
@@ -116,20 +109,7 @@ def food_search(request):
 
     return HttpResponseRedirect('/')
 
-def food_search_auto(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        Food = food.objects.filter(title__icontains=q)
-        results = []
-        for rs in Food:
-            food_json = {}
-            food_json = rs.title
-            results.append(food_json)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+
 
 def logout_view(request):
     logout(request)
@@ -162,6 +142,14 @@ def signup_view(request):
             password = request.POST['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
+            #userı ekleyip login ettikten sonra
+            #kullanıcı profilini güncellemek isterse
+            current_user = request.user
+            data=UserProfile()
+            data.user_id=current_user.id
+            data.image="images/users/usern.png"
+            data.save()
+            messages.success(request, "Hoşgeldiniz.. Sitemize başarılı bir şekilde kayıt oldunuz.")
             return HttpResponseRedirect('/')
 
 
@@ -173,3 +161,12 @@ def signup_view(request):
     return render(request, 'signup.html', context)
 
 
+def faq(request):
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context={
+        'category': category,
+        'faq': faq,
+    }
+
+    return render(request, 'faq.html',context)

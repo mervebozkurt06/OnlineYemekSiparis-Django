@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from food.models import Category, food, Images, Comment  # modelden Category food ve Images eklendi
+from food.models import Category, food, Images, Comment, Restaurant  # modelden Category food ve Images eklendi
 
 class FoodImageInLine(admin.TabularInline): #5 li foto eklemek icin
     model = Images #Image tablosu
@@ -17,10 +17,17 @@ class CategoryAdmin(MPTTModelAdmin): #admindeki categories in görüntüsü
 
 
 class foodAdmin(admin.ModelAdmin): #admindeki foods tablosu
-    list_display = ['title','category','price','amount', 'image_tag', 'catimg_tag','status']
+    list_display = ['title','category','restaurant','price','amount', 'image_tag', 'catimg_tag','status']
     list_filter = ['status','category']
     inlines = [FoodImageInLine] #aşağıdaki 5 resmi eklemek için
     readonly_fields = ('image_tag','catimg_tag',) # image ların resim olarak görünmesi için
+    prepopulated_fields = {'slug':('title',)} #slug ın nerden oluştuğunu (otomatik slug için)
+
+class RestaurantAdmin(admin.ModelAdmin): #admindeki foods tablosu
+    list_display = ['title','category']
+
+    #inlines = [FoodImageInLine] #aşağıdaki 5 resmi eklemek için
+    #readonly_fields = ('image_tag','catimg_tag',) # image ların resim olarak görünmesi için
     prepopulated_fields = {'slug':('title',)} #slug ın nerden oluştuğunu (otomatik slug için)
 
 
@@ -75,6 +82,7 @@ admin.site.register(Category,CategoryAdmin2) #admin de tablo gösterilmesi
 admin.site.register(food,foodAdmin)
 admin.site.register(Images,ImagesAdmin)
 admin.site.register(Comment,CommentAdmin)
+admin.site.register(Restaurant,RestaurantAdmin)
 
 
 
