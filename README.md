@@ -1,3 +1,3 @@
 "# OnlineYemekSiparis" 
-PHP Symfony kullanılarak yapılmıştır. 
+Python DJANGO kullanılarak yapılmıştır. 
 Admin ve Home paneli ayrıdır.
